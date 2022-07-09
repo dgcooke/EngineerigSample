@@ -7,13 +7,11 @@
     <groupId>com.smartphone.engineeringsample</groupId>
     <artifactId>EngineeringSample</artifactId>
     <version>1.0</version>
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <modules>
-        <module>Trip</module>
+        <module>TripConsumer</module>
     </modules>
-
 </project>
