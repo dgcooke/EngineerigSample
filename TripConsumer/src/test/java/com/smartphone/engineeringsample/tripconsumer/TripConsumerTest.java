@@ -15,7 +15,7 @@ class TripConsumerTest
 	{
 		//given
 		//when
-		Executable executable = () -> new TripConsumer(null);
+		Executable executable = () -> new BusTripConsumer(null);
 
 		//then
 		assertThrows(IllegalArgumentException.class, executable);
@@ -32,7 +32,7 @@ class TripConsumerTest
 		final var inputStream =  new ByteArrayInputStream(invalidSampleData.getBytes());
 
 		//when
-		final var tripConsumer = new TripConsumer(inputStream);
+		final var tripConsumer = new BusTripConsumer(inputStream);
 		final Executable executable = () -> tripConsumer.processTripData();
 
 		//then
@@ -46,7 +46,7 @@ class TripConsumerTest
 				"2, 22-01-2018 13:05:00, OFF, Stop2, Company1, Bus37, 5500005555555559";
 
 		final var inputStream =  new ByteArrayInputStream(validSampleData.getBytes());
-		final var tripConsumer = new TripConsumer(inputStream);
+		final var tripConsumer = new BusTripConsumer(inputStream);
 
 		//when
 		final var result = tripConsumer.processTripData();
