@@ -15,5 +15,6 @@
     </properties>
     <modules>
         <module>TripConsumer</module>
+        <module>TripSimulator</module>
     </modules>
 </project>
