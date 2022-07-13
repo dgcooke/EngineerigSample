@@ -22,7 +22,7 @@ class TripConsumerTest
 	}
 
 	@Test
-	protected void processTripData_will_fail_if_invalid_value_passed_as_argument()
+	protected void deserialiseTripData_will_fail_if_invalid_value_passed_as_argument()
 	{
 		//given
 		final var invalidSampleData = ", DateTimeUTC, TapType, StopId, CompanyId, BusID, PAN\n" +
@@ -33,7 +33,7 @@ class TripConsumerTest
 
 		//when
 		final var tripConsumer = new BusTripConsumer(inputStream);
-		final Executable executable = () -> tripConsumer.processTripData();
+		final Executable executable = () -> tripConsumer.deserialiseTripData();
 
 		//then
 		assertThrows(IllegalArgumentException.class, executable);
@@ -49,12 +49,13 @@ class TripConsumerTest
 		final var tripConsumer = new BusTripConsumer(inputStream);
 
 		//when
-		final var result = tripConsumer.processTripData();
+		final var result = tripConsumer.deserialiseTripData();
 
 		//then
 		assertAll(
 				() -> assertThat(result).isNotNull(),
-				() -> assertThat(result.size()).isGreaterThan(0)
+				() -> assertThat(result.size()).isGreaterThan(0),
+				() -> assertThat(result.size()).isEqualTo(2)
 		);
 	}
 }

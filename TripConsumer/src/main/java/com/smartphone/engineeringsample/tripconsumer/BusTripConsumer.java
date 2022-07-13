@@ -18,7 +18,7 @@ public final class BusTripConsumer implements TripConsumer
 		this.tripStream = tripStream;
 	}
 
-	public List<ImmutableTrip> processTripData()
+	public List<ImmutableTrip> deserialiseTripData()
 	{
 		try
 		{
