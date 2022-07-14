@@ -33,6 +33,30 @@ public sealed class ImmutableTrip implements Trip permits MutableTrip
 	private Company company;
 	private String pan;
 
+	public Long getId() {
+		return id;
+	}
+
+	public ZonedDateTime getUtcTime() {
+		return utcTime;
+	}
+
+	public TapType getTapType() {
+		return tapType;
+	}
+
+	public Stop getStop() {
+		return stop;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public String getPan() {
+		return pan;
+	}
+
 	private ImmutableTrip(final Long id, final ZonedDateTime utcTime, final TapType tapType, final Stop stop, final String pan)
 	{
 		this.id = id;
