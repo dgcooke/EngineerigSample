@@ -1,5 +1,6 @@
-package com.smartphone.engineeringsample.tripconsumer;
+package com.smartphone.engineeringsample.tripconsumer.billing;
 
+import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
 import com.smartphone.engineeringsample.tripconsumer.transaction.Transaction;
 import com.smartphone.engineeringsample.tripconsumer.transaction.TransactionType;
 
@@ -7,13 +8,13 @@ import java.util.*;
 
 public final class BusTripBilling implements Billing
 {
-    final List<Trip> billingList;
+    final List<? extends Trip> billingList;
     /**
      *
      * @param billingList valid non-empty list of type Trip
      * @throws IllegalArgumentException if list is empty or null
      */
-    public BusTripBilling(final List<Trip> billingList)
+    public BusTripBilling(final List<? extends Trip> billingList)
     {
         if((billingList == null) || (billingList.isEmpty()))
         {

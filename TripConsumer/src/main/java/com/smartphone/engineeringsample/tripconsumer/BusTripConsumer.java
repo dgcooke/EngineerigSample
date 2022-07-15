@@ -1,10 +1,9 @@
 package com.smartphone.engineeringsample.tripconsumer;
 
-import com.smartphone.engineeringsample.tripconsumer.stop.Stop;
+import com.smartphone.engineeringsample.tripconsumer.trip.ImmutableTrip;
+import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
 
 import java.io.*;
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

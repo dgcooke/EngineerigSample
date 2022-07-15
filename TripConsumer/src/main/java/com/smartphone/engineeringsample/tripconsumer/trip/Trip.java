@@ -1,5 +1,6 @@
-package com.smartphone.engineeringsample.tripconsumer;
+package com.smartphone.engineeringsample.tripconsumer.trip;
 
+import com.smartphone.engineeringsample.tripconsumer.TapType;
 import com.smartphone.engineeringsample.tripconsumer.company.Company;
 import com.smartphone.engineeringsample.tripconsumer.stop.Stop;
 

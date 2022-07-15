@@ -1,9 +1,9 @@
 package com.smartphone.engineeringsample.tripconsumer;
 
+import com.smartphone.engineeringsample.tripconsumer.billing.BusTripBilling;
 import com.smartphone.engineeringsample.tripconsumer.transaction.TransactionType;
-import org.junit.jupiter.api.Disabled;
+import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
@@ -21,7 +21,7 @@ class BusTripBillingTest {
                 "2, 22-01-2018 13:05:00, OFF, Stop1, Company1, Bus37, 5500005555555559";
         final var inputStream =  new ByteArrayInputStream(validSampleData.getBytes());
         final var tripConsumer = new BusTripConsumer(inputStream);
-        final var tripList = (List<Trip>) tripConsumer.deserialiseTripData();
+        final var tripList = tripConsumer.deserialiseTripData();
 
         //when
         final var busTripBilling = new BusTripBilling(tripList);
@@ -43,7 +43,7 @@ class BusTripBillingTest {
                 "1, 22-01-2018 13:00:00, ON, Stop1, Company1, Bus37, 5500005555555559\n";
         final var inputStream =  new ByteArrayInputStream(validSampleData.getBytes());
         final var tripConsumer = new BusTripConsumer(inputStream);
-        final var tripList = (List<Trip>) tripConsumer.deserialiseTripData();
+        final var tripList = tripConsumer.deserialiseTripData();
 
         //when
         final var busTripBilling = new BusTripBilling(tripList);
@@ -66,7 +66,7 @@ class BusTripBillingTest {
                 "2, 22-01-2018 13:05:00, OFF, Stop2, Company1, Bus37, 5500005555555559";
         final var inputStream =  new ByteArrayInputStream(validSampleData.getBytes());
         final var tripConsumer = new BusTripConsumer(inputStream);
-        final var tripList = (List<Trip>) tripConsumer.deserialiseTripData();
+        final var tripList = tripConsumer.deserialiseTripData();
 
         //when
         final var busTripBilling = new BusTripBilling(tripList);
@@ -91,7 +91,7 @@ class BusTripBillingTest {
                 "4, 22-01-2018 13:17:00, OFF, Stop3, Company1, Bus37, 5500005555555557";
         final var inputStream =  new ByteArrayInputStream(validSampleData.getBytes());
         final var tripConsumer = new BusTripConsumer(inputStream);
-        final var tripList = (List<Trip>) tripConsumer.deserialiseTripData();
+        final var tripList = tripConsumer.deserialiseTripData();
 
         //when
         final var busTripBilling = new BusTripBilling(tripList);

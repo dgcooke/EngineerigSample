@@ -1,4 +1,4 @@
-package com.smartphone.engineeringsample.tripconsumer;
+package com.smartphone.engineeringsample.tripconsumer.billing;
 
 import com.smartphone.engineeringsample.tripconsumer.transaction.Transaction;
 

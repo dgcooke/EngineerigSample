@@ -1,7 +1,10 @@
 module com.smartphone.engineeringsample.tripconsumer {
 	requires java.logging;
-	//requires lombok;
 	exports com.smartphone.engineeringsample.tripconsumer;
 	exports com.smartphone.engineeringsample.tripconsumer.transaction;
+	exports com.smartphone.engineeringsample.tripconsumer.billing;
+	exports com.smartphone.engineeringsample.tripconsumer.trip;
 	opens files;
+
+
 }
