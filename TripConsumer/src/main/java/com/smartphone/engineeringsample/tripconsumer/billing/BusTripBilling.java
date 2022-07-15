@@ -9,6 +9,7 @@ import java.util.*;
 public final class BusTripBilling implements Billing
 {
     final List<? extends Trip> billingList;
+    private final static String OUTPUT_HEADER = "Started, Finished, DurationSecs, FromStopId, ToStopId, ChargeAmount, CompanyId, BusID, PAN, Status";
     /**
      *
      * @param billingList valid non-empty list of type Trip
@@ -24,11 +25,10 @@ public final class BusTripBilling implements Billing
     }
 
 
-    private void calculateExpense(final Trip startTrip, final Trip endTrip)
+    public void produceOutputFromTransactionList(final List<Transaction> transactionList)
     {
 
     }
-
 
     //needs to handle cancelled trip
     //needs to handle incomplete trip
