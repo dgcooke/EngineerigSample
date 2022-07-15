@@ -75,7 +75,7 @@ public sealed class ImmutableTrip implements Trip permits MutableTrip
 			this.tapType = TapType.valueOf(inputList.get(TYPE_POSITION).trim());
 			this.stop = new Stop(inputList.get(STOP_POSITION).trim());
 			this.company = new Company(inputList.get(COMPANY_POSITION).trim());
-			this.pan = inputList.get(COMPANY_POSITION).trim();
+			this.pan = inputList.get(PAN_POSITION).trim();
 
 		}catch (Exception exception)
 		{

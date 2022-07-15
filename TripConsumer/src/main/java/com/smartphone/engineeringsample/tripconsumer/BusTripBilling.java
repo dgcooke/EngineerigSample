@@ -3,14 +3,11 @@ package com.smartphone.engineeringsample.tripconsumer;
 import com.smartphone.engineeringsample.tripconsumer.transaction.Transaction;
 import com.smartphone.engineeringsample.tripconsumer.transaction.TransactionType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public final class BusTripBilling implements Billing
 {
     final List<Trip> billingList;
-
-
     /**
      *
      * @param billingList valid non-empty list of type Trip
@@ -36,38 +33,34 @@ public final class BusTripBilling implements Billing
     //needs to handle incomplete trip
     public List<Transaction> processList()
     {
+        final Map<String, Trip> tripMap = new HashMap<>();
         final List<Transaction> transactionList = new ArrayList<>();
         Trip processingTrip = null;
         for(var trip : billingList)
         {
-            if(trip.getTapType() == TapType.ON)
-            {
-                if(processingTrip != null)
+            final Optional<Trip> locatedTrip = Optional.ofNullable(tripMap.get(trip.getPan()));
+            locatedTrip.ifPresentOrElse((thisTrip) ->{
+                if(thisTrip.getStop().stopName().compareTo(trip.getStop().stopName()) == 0)
                 {
-                    //incomplete case
-                    transactionList.add(new Transaction(processingTrip.getStop(),processingTrip.getStop(), TransactionType.Incomplete));
+                    transactionList.add(new Transaction(thisTrip.getStop(),trip.getStop(), TransactionType.Cancelled));
                 }else
                 {
-                    processingTrip = trip;
+                    transactionList.add(new Transaction(thisTrip.getStop(),trip.getStop(), TransactionType.Completed));
                 }
+                System.out.println("alighting");
+                tripMap.remove(thisTrip.getPan());
+            }, () -> {
+                tripMap.put(trip.getPan(), trip);
+                System.out.println("boarding");
+            });
 
-            }else if(trip.getTapType() == TapType.OFF)
-            {
-                if(processingTrip.getStop().stopName().compareTo(trip.getStop().stopName()) == 0)
-                {
-                    //canceled case
-                    transactionList.add(new Transaction(trip.getStop(),trip.getStop(), TransactionType.Cancelled));
-                }else
-                {
-                    //completed
-                    transactionList.add(new Transaction(trip.getStop(),trip.getStop(), TransactionType.Completed));
-                }
-                if(processingTrip != null)
-                {
-                    calculateExpense(processingTrip, trip);
-                }
-                processingTrip = null;
-            }
+        }
+        if(tripMap.size() > 0)
+        {
+            tripMap.keySet().forEach( pan -> {
+                final var trip = tripMap.get(pan);
+                transactionList.add(new Transaction(trip.getStop(),trip.getStop(),TransactionType.Incomplete));
+            });
         }
         return transactionList;
     }
