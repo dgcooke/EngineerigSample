@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface TripConsumer
 {
-	List<ImmutableTrip> deserialiseTripData();
+	List<? extends Trip> deserialiseTripData();
 }

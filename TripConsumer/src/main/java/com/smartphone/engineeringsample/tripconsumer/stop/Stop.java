@@ -1,5 +1,5 @@
 package com.smartphone.engineeringsample.tripconsumer.stop;
 
-public record Stop(String stop)
+public record Stop(String stopName)
 {
 }

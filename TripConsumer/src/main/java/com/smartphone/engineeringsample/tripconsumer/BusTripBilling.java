@@ -1,10 +1,15 @@
 package com.smartphone.engineeringsample.tripconsumer;
 
+import com.smartphone.engineeringsample.tripconsumer.transaction.Transaction;
+import com.smartphone.engineeringsample.tripconsumer.transaction.TransactionType;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public final class BusTripBilling implements Billing
 {
     final List<Trip> billingList;
+
 
     /**
      *
@@ -25,18 +30,38 @@ public final class BusTripBilling implements Billing
     {
 
     }
+
+
     //needs to handle cancelled trip
     //needs to handle incomplete trip
-    protected void processList()
+    public List<Transaction> processList()
     {
+        final List<Transaction> transactionList = new ArrayList<>();
         Trip processingTrip = null;
         for(var trip : billingList)
         {
             if(trip.getTapType() == TapType.ON)
             {
-                processingTrip = trip;
+                if(processingTrip != null)
+                {
+                    //incomplete case
+                    transactionList.add(new Transaction(processingTrip.getStop(),processingTrip.getStop(), TransactionType.Incomplete));
+                }else
+                {
+                    processingTrip = trip;
+                }
+
             }else if(trip.getTapType() == TapType.OFF)
             {
+                if(processingTrip.getStop().stopName().compareTo(trip.getStop().stopName()) == 0)
+                {
+                    //canceled case
+                    transactionList.add(new Transaction(trip.getStop(),trip.getStop(), TransactionType.Cancelled));
+                }else
+                {
+                    //completed
+                    transactionList.add(new Transaction(trip.getStop(),trip.getStop(), TransactionType.Completed));
+                }
                 if(processingTrip != null)
                 {
                     calculateExpense(processingTrip, trip);
@@ -44,6 +69,6 @@ public final class BusTripBilling implements Billing
                 processingTrip = null;
             }
         }
+        return transactionList;
     }
-
 }

@@ -1,6 +1,10 @@
 package com.smartphone.engineeringsample.tripconsumer;
 
+import com.smartphone.engineeringsample.tripconsumer.stop.Stop;
+
 import java.io.*;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +12,12 @@ public final class BusTripConsumer implements TripConsumer
 {
 	private static final String HEADER_LINE = "ID, DateTimeUTC, TapType, StopId, CompanyId, BusID, PAN";
 	private final InputStream tripStream;
+
+	/**
+	 *
+	 * @param tripStream - expects non null InputStream
+	 * @throws IllegalArgumentException if input file is null
+	 */
 	public BusTripConsumer(final InputStream tripStream)
 	{
 		if(tripStream == null)
@@ -18,7 +28,12 @@ public final class BusTripConsumer implements TripConsumer
 		this.tripStream = tripStream;
 	}
 
-	public List<ImmutableTrip> deserialiseTripData()
+	/**
+	 * @throws IllegalArgumentException if input file is not readable
+	 * @throws IllegalArgumentException if input file format is incorrect
+	 * @return list of objects that extend Trip
+	 */
+	public List<? extends Trip> deserialiseTripData()
 	{
 		try
 		{
@@ -27,18 +42,18 @@ public final class BusTripConsumer implements TripConsumer
 
 			if(fileHeaderLine.contains(HEADER_LINE))
 			{
-				var result = targetReader.lines()
+				var result  = targetReader.lines()
 						.map((line) -> Arrays.asList(line.split(",")))
-						.map((list) -> new ImmutableTrip(list))
+						.map(ImmutableTrip::new)
 						.toList();
-				return result;
+				return  result;
 			}else
 			{
 				throw new IllegalArgumentException("input is wrong format");
 			}
 		}catch(IOException ioException)
 		{
-			throw new IllegalArgumentException("input is wrong format");
+			throw new IllegalArgumentException("input could not be opened");
 		}
 	}
 }
