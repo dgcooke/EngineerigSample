@@ -1,8 +1,7 @@
 package com.smartphone.engineeringsample.tripconsumer.billing;
 
+import com.smartphone.engineeringsample.tripconsumer.transaction.*;
 import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
-import com.smartphone.engineeringsample.tripconsumer.transaction.Transaction;
-import com.smartphone.engineeringsample.tripconsumer.transaction.TransactionType;
 
 import java.util.*;
 
@@ -30,8 +29,11 @@ public final class BusTripBilling implements Billing
 
     }
 
-    //needs to handle cancelled trip
-    //needs to handle incomplete trip
+	private void processRecord(final Transaction transaction)
+	{
+
+	}
+
     public List<Transaction> processList()
     {
         final Map<String, Trip> tripMap = new HashMap<>();
@@ -40,19 +42,18 @@ public final class BusTripBilling implements Billing
         for(var trip : billingList)
         {
             final Optional<Trip> locatedTrip = Optional.ofNullable(tripMap.get(trip.getPan()));
-            locatedTrip.ifPresentOrElse((thisTrip) ->{
+            locatedTrip.ifPresentOrElse((thisTrip) ->
+			{
                 if(thisTrip.getStop().stopName().compareTo(trip.getStop().stopName()) == 0)
                 {
-                    transactionList.add(new Transaction(thisTrip.getStop(),trip.getStop(), TransactionType.Cancelled));
+                    transactionList.add(new CancelledTransaction(trip));
                 }else
                 {
-                    transactionList.add(new Transaction(thisTrip.getStop(),trip.getStop(), TransactionType.Completed));
+                    transactionList.add(new CompletedTransaction(thisTrip,trip));
                 }
-                System.out.println("alighting");
                 tripMap.remove(thisTrip.getPan());
             }, () -> {
                 tripMap.put(trip.getPan(), trip);
-                System.out.println("boarding");
             });
 
         }
@@ -60,7 +61,7 @@ public final class BusTripBilling implements Billing
         {
             tripMap.keySet().forEach( pan -> {
                 final var trip = tripMap.get(pan);
-                transactionList.add(new Transaction(trip.getStop(),trip.getStop(),TransactionType.Incomplete));
+                transactionList.add(new IncompleteTransaction(trip));
             });
         }
         return transactionList;

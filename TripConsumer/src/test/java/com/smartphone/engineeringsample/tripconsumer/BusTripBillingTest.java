@@ -1,12 +1,12 @@
 package com.smartphone.engineeringsample.tripconsumer;
 
 import com.smartphone.engineeringsample.tripconsumer.billing.BusTripBilling;
-import com.smartphone.engineeringsample.tripconsumer.transaction.TransactionType;
-import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
+import com.smartphone.engineeringsample.tripconsumer.transaction.CancelledTransaction;
+import com.smartphone.engineeringsample.tripconsumer.transaction.CompletedTransaction;
+import com.smartphone.engineeringsample.tripconsumer.transaction.IncompleteTransaction;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,7 +31,7 @@ class BusTripBillingTest {
         assertAll(
                 () -> assertThat(result).isNotNull(),
                 () -> assertThat(result.size()).isEqualTo(1),
-                () -> assertThat(result.get(0).transactionType()).isEqualTo(TransactionType.Cancelled)
+                () -> assertThat(result.get(0)).isInstanceOf(CancelledTransaction.class)
         );
     }
 
@@ -53,7 +53,7 @@ class BusTripBillingTest {
         assertAll(
                 () -> assertThat(result).isNotNull(),
                 () -> assertThat(result.size()).isEqualTo(1),
-                () -> assertThat(result.get(0).transactionType()).isEqualTo(TransactionType.Incomplete)
+                () -> assertThat(result.get(0)).isInstanceOf(IncompleteTransaction.class)
         );
     }
 
@@ -76,7 +76,7 @@ class BusTripBillingTest {
         assertAll(
                 () -> assertThat(result).isNotNull(),
                 () -> assertThat(result.size()).isEqualTo(1),
-                () -> assertThat(result.get(0).transactionType()).isEqualTo(TransactionType.Completed)
+                () -> assertThat(result.get(0)).isInstanceOf(CompletedTransaction.class)
         );
     }
 
@@ -101,7 +101,7 @@ class BusTripBillingTest {
         assertAll(
                 () -> assertThat(result).isNotNull(),
                 () -> assertThat(result.size()).isEqualTo(2),
-                () -> assertThat(result.get(0).transactionType()).isEqualTo(TransactionType.Completed)
+                () -> assertThat(result.get(0)).isInstanceOf(CompletedTransaction.class)
         );
     }
 
