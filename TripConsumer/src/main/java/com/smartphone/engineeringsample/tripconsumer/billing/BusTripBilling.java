@@ -46,7 +46,7 @@ public final class BusTripBilling implements Billing
 			{
                 if(thisTrip.getStop().stopName().compareTo(trip.getStop().stopName()) == 0)
                 {
-                    transactionList.add(new CancelledTransaction(trip));
+                    transactionList.add(new CancelledTransaction(thisTrip,trip));
                 }else
                 {
                     transactionList.add(new CompletedTransaction(thisTrip,trip));

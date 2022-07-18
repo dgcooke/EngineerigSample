@@ -32,7 +32,8 @@ class BusTripBillingTest
 		assertAll(
 				() -> assertThat(result).isNotNull(),
 				() -> assertThat(result.size()).isEqualTo(1),
-				() -> assertThat(result.get(0)).isInstanceOf(CancelledTransaction.class)
+				() -> assertThat(result.get(0)).isInstanceOf(CancelledTransaction.class),
+				() -> assertThat( result.get(0).generateOutput()).isEqualTo("22-01-2018 13:00:00, 22-01-2018 13:05:00, 300, Stop1, Stop1, $0.00, Company1, B37, 5500005555555559, CANCELLED")
 		);
 	}
 
@@ -57,7 +58,7 @@ class BusTripBillingTest
 				() -> assertThat(result).isNotNull(),
 				() -> assertThat(result.size()).isEqualTo(1),
 				() -> assertThat(result.get(0)).isInstanceOf(IncompleteTransaction.class),
-				() -> assertThat( result.get(0).generateOutput()).isEqualTo("")
+				() -> assertThat( result.get(0).generateOutput()).isEqualTo("22-01-2018 13:00:00, , 0, Stop1, , $7.30, Company1, B37, 5500005555555559, INCOMPLETE")
 		);
 
 	}
