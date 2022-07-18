@@ -50,12 +50,16 @@ class BusTripBillingTest
 		final var busTripBilling = new BusTripBilling(tripList);
 		final var result = busTripBilling.processList();
 
+//		System.out.println(result.get(0).generateOutput());
+
 		//then
 		assertAll(
 				() -> assertThat(result).isNotNull(),
 				() -> assertThat(result.size()).isEqualTo(1),
-				() -> assertThat(result.get(0)).isInstanceOf(IncompleteTransaction.class)
+				() -> assertThat(result.get(0)).isInstanceOf(IncompleteTransaction.class),
+				() -> assertThat( result.get(0).generateOutput()).isEqualTo("")
 		);
+
 	}
 
 	@Test

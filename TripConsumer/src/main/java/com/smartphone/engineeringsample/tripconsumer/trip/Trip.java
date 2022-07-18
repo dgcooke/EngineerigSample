@@ -1,6 +1,7 @@
 package com.smartphone.engineeringsample.tripconsumer.trip;
 
 import com.smartphone.engineeringsample.tripconsumer.TapType;
+import com.smartphone.engineeringsample.tripconsumer.bus.Bus;
 import com.smartphone.engineeringsample.tripconsumer.company.Company;
 import com.smartphone.engineeringsample.tripconsumer.stop.Stop;
 
@@ -19,5 +20,9 @@ public interface Trip
     public Company getCompany();
 
     public String getPan();
+
+	public Bus getBus();
+
+	public String getTimeAsString();
 
 }

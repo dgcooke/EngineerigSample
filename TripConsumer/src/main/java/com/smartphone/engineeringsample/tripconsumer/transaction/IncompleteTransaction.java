@@ -26,7 +26,11 @@ public class IncompleteTransaction implements Transaction
 		stringBuilder.append(",");
 		stringBuilder.append(trip.getCompany().companyName());
 		stringBuilder.append(",");
-		//stringBuilder.append(trip.get;
-		return null;
+		stringBuilder.append(trip.getBus().busId());
+		stringBuilder.append(",");
+		stringBuilder.append(trip.getPan());
+		stringBuilder.append(",");
+		stringBuilder.append("INCOMPLETE");
+		return stringBuilder.toString();
 	}
 }

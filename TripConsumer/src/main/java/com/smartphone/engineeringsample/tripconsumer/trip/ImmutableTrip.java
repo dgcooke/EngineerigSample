@@ -1,7 +1,8 @@
 package com.smartphone.engineeringsample.tripconsumer.trip;
 
-import com.smartphone.engineeringsample.tripconsumer.trip.MutableTrip.MutableTrip;
+
 import com.smartphone.engineeringsample.tripconsumer.TapType;
+import com.smartphone.engineeringsample.tripconsumer.bus.Bus;
 import com.smartphone.engineeringsample.tripconsumer.company.Company;
 import com.smartphone.engineeringsample.tripconsumer.stop.Stop;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public sealed class ImmutableTrip implements Trip permits MutableTrip
+public final class ImmutableTrip implements Trip
 {
 	private static int ID_POSITION = 0;
 	private static int TIME_POSITION = 1;
@@ -30,41 +31,39 @@ public sealed class ImmutableTrip implements Trip permits MutableTrip
 	private ZonedDateTime utcTime;
 	private TapType tapType;
 	private Stop stop;
+	private Bus bus;
 
 	private Company company;
 	private String pan;
-
+	@Override
 	public Long getId() {
 		return id;
 	}
-
+	@Override
 	public ZonedDateTime getUtcTime() {
 		return utcTime;
 	}
-
+	@Override
 	public TapType getTapType() {
 		return tapType;
 	}
-
+	@Override
 	public Stop getStop() {
 		return stop;
 	}
-
+	@Override
 	public Company getCompany() {
 		return company;
 	}
-
+	@Override
 	public String getPan() {
 		return pan;
 	}
 
-	private ImmutableTrip(final Long id, final ZonedDateTime utcTime, final TapType tapType, final Stop stop, final String pan)
+	@Override
+	public Bus getBus()
 	{
-		this.id = id;
-		this.utcTime = utcTime;
-		this.tapType = tapType;
-		this.stop = stop;
-		this.pan = pan;
+		return bus;
 	}
 
 	public ImmutableTrip(final List<String> inputList)
@@ -77,6 +76,7 @@ public sealed class ImmutableTrip implements Trip permits MutableTrip
 			this.stop = new Stop(inputList.get(STOP_POSITION).trim());
 			this.company = new Company(inputList.get(COMPANY_POSITION).trim());
 			this.pan = inputList.get(PAN_POSITION).trim();
+			this.bus = new Bus(inputList.get(BUS_POSITION).trim());
 
 		}catch (Exception exception)
 		{
@@ -89,8 +89,10 @@ public sealed class ImmutableTrip implements Trip permits MutableTrip
 		}
 	}
 
-	public ImmutableTrip()
+	@Override
+	public String getTimeAsString()
 	{
-		//TODO please remove me
+		return utcTime.format(formatter);
 	}
+
 }
