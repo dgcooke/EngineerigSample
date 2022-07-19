@@ -11,13 +11,17 @@ public class Stop implements StopOperations
 
     public static Stop getInstance(final String stopName)
     {
-        return switch (stopName)
+        if(stopName != null)
         {
-            case "Stop1"  -> new StopOne(stopName);
-            case "Stop2" -> new StopTwo(stopName);
-            case "Stop3" -> new StopThree(stopName);
-                default -> throw new IllegalArgumentException(stopName + " Not valid input");
-        };
+            return switch (stopName)
+                    {
+                        case "Stop1"  -> new StopOne(stopName);
+                        case "Stop2" -> new StopTwo(stopName);
+                        case "Stop3" -> new StopThree(stopName);
+                        default -> throw new IllegalArgumentException(stopName + " Not valid input");
+                    };
+        }
+        throw new IllegalArgumentException("stopName can not be null");
     }
     public String getStopName()
     {
