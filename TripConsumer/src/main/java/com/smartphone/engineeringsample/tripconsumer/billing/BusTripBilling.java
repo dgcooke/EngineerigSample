@@ -44,7 +44,7 @@ public final class BusTripBilling implements Billing
             final Optional<Trip> locatedTrip = Optional.ofNullable(tripMap.get(trip.getPan()));
             locatedTrip.ifPresentOrElse((thisTrip) ->
 			{
-                if(thisTrip.getStop().stopName().compareTo(trip.getStop().stopName()) == 0)
+                if(thisTrip.getStop().getStopName().compareTo(trip.getStop().getStopName()) == 0)
                 {
                     transactionList.add(new CancelledTransaction(thisTrip,trip));
                 }else

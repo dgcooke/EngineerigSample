@@ -1,5 +1,7 @@
 package com.smartphone.engineeringsample.tripconsumer.transaction;
 
+import com.smartphone.engineeringsample.tripconsumer.stop.StopOne;
+import com.smartphone.engineeringsample.tripconsumer.stop.StopTwo;
 import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
 
 public class IncompleteTransaction implements Transaction
@@ -19,15 +21,18 @@ public class IncompleteTransaction implements Transaction
 		stringBuilder.append(", ");
 		stringBuilder.append("0");
 		stringBuilder.append(", ");
-		stringBuilder.append(trip.getStop().stopName());
+		stringBuilder.append(trip.getStop().getStopName());
 		stringBuilder.append(", ");
 		stringBuilder.append(", ");
-		if(trip.getStop().stopName().compareTo("Stop1") == 0)
+
+		if(trip.getStop() instanceof StopOne)
 		{
 			stringBuilder.append("$7.30");
-		}else if (trip.getStop().stopName().compareTo("Stop2") == 0)
+
+		}else if (trip.getStop() instanceof StopTwo)
 		{
 			stringBuilder.append("$5.50");
+
 		}else //stop 3
 		{
 			stringBuilder.append("$7.30");

@@ -1,5 +1,6 @@
 package com.smartphone.engineeringsample.tripconsumer.transaction;
 
+import com.smartphone.engineeringsample.tripconsumer.stop.StopOne;
 import com.smartphone.engineeringsample.tripconsumer.trip.Trip;
 
 public class CompletedTransaction implements Transaction
@@ -24,20 +25,11 @@ public class CompletedTransaction implements Transaction
 		stringBuilder.append(", ");
 		stringBuilder.append(durationInSeconds);
 		stringBuilder.append(", ");
-		stringBuilder.append(board.getStop().stopName());
+		stringBuilder.append(board.getStop().getStopName());
 		stringBuilder.append(", ");
-		stringBuilder.append(alight.getStop().stopName());
+		stringBuilder.append(alight.getStop().getStopName());
 		stringBuilder.append(", ");
-		if(trip.getStop().stopName().compareTo("Stop1") == 0)
-		{
-			stringBuilder.append("$7.30");
-		}else if (trip.getStop().stopName().compareTo("Stop2") == 0)
-		{
-			stringBuilder.append("$5.50");
-		}else //stop 3
-		{
-			stringBuilder.append("$7.30");
-		}
+		stringBuilder.append(board.getStop().determineFee(alight.getStop()));
 		stringBuilder.append(", ");
 		stringBuilder.append(board.getCompany().companyName());
 		stringBuilder.append(", ");

@@ -73,7 +73,7 @@ public final class ImmutableTrip implements Trip
 			this.id = Long.valueOf(inputList.get(ID_POSITION).trim());
 			this.utcTime = LocalDateTime.parse(inputList.get(TIME_POSITION).trim(), formatter).atZone(ZoneOffset.UTC);
 			this.tapType = TapType.valueOf(inputList.get(TYPE_POSITION).trim());
-			this.stop = new Stop(inputList.get(STOP_POSITION).trim());
+			this.stop = Stop.getInstance(inputList.get(STOP_POSITION).trim());
 			this.company = new Company(inputList.get(COMPANY_POSITION).trim());
 			this.pan = inputList.get(PAN_POSITION).trim();
 			this.bus = new Bus(inputList.get(BUS_POSITION).trim());

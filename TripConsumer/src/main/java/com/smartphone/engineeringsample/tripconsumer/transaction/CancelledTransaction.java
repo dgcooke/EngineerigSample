@@ -24,9 +24,9 @@ public class CancelledTransaction implements Transaction
 		stringBuilder.append(", ");
 		stringBuilder.append(durationInSeconds);
 		stringBuilder.append(", ");
-		stringBuilder.append(board.getStop().stopName());
+		stringBuilder.append(board.getStop().getStopName());
 		stringBuilder.append(", ");
-		stringBuilder.append(alight.getStop().stopName());
+		stringBuilder.append(alight.getStop().getStopName());
 		stringBuilder.append(", ");
 		stringBuilder.append("$0.00");
 		stringBuilder.append(", ");
