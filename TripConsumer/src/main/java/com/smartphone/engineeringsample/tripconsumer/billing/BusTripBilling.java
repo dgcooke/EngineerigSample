@@ -42,16 +42,16 @@ public final class BusTripBilling implements Billing
         for(var trip : billingList)
         {
             final Optional<Trip> locatedTrip = Optional.ofNullable(tripMap.get(trip.getPan()));
-            locatedTrip.ifPresentOrElse((thisTrip) ->
+            locatedTrip.ifPresentOrElse((previousTrip) ->
 			{
-                if(thisTrip.getStop().getStopName().compareTo(trip.getStop().getStopName()) == 0)
+                if(previousTrip.getStop().getStopName().compareTo(trip.getStop().getStopName()) == 0)
                 {
-                    transactionList.add(new CancelledTransaction(thisTrip,trip));
+                    transactionList.add(new CancelledTransaction(previousTrip,trip));
                 }else
                 {
-                    transactionList.add(new CompletedTransaction(thisTrip,trip));
+                    transactionList.add(new CompletedTransaction(previousTrip,trip));
                 }
-                tripMap.remove(thisTrip.getPan());
+                tripMap.remove(previousTrip.getPan());
             }, () -> {
                 tripMap.put(trip.getPan(), trip);
             });
