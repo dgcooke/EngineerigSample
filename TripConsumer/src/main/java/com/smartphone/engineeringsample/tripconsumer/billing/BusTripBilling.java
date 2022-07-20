@@ -23,17 +23,10 @@ public final class BusTripBilling implements Billing
         this.billingList = billingList;
     }
 
-
-    public void produceOutputFromTransactionList(final List<Transaction> transactionList)
-    {
-
-    }
-
-	private void processRecord(final Transaction transaction)
-	{
-
-	}
-
+    /**
+     *
+     * @return List<Transaction> list of transactions to be processed
+     */
     public List<Transaction> processList()
     {
         final Map<String, Trip> tripMap = new HashMap<>();
@@ -55,7 +48,6 @@ public final class BusTripBilling implements Billing
             }, () -> {
                 tripMap.put(trip.getPan(), trip);
             });
-
         }
         if(tripMap.size() > 0)
         {
@@ -63,6 +55,10 @@ public final class BusTripBilling implements Billing
                 final var trip = tripMap.get(pan);
                 transactionList.add(new IncompleteTransaction(trip));
             });
+        }
+        if(!transactionList.isEmpty())
+        {
+            System.out.println(OUTPUT_HEADER);
         }
         return transactionList;
     }

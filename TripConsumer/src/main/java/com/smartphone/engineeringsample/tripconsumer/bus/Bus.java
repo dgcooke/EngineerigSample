@@ -8,6 +8,6 @@ public record Bus(String busId)
 		{
 			return busId.replace("Bus", "B");
 		}
-		return null;
+		return busId;
 	}
 }

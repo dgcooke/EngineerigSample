@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface Billing {
     List<Transaction> processList();
-    void produceOutputFromTransactionList(final List<Transaction> transactionList);
 }

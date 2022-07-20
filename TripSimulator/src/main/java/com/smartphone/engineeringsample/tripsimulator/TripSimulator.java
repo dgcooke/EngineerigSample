@@ -2,6 +2,7 @@ package com.smartphone.engineeringsample.tripsimulator;
 
 import com.smartphone.engineeringsample.tripconsumer.BusTripConsumer;
 import com.smartphone.engineeringsample.tripconsumer.TripConsumer;
+import com.smartphone.engineeringsample.tripconsumer.billing.BusTripBilling;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +12,6 @@ public class TripSimulator
 {
     public static void main(String[] args)
     {
-        System.out.println("Hello Modules");
         if(args.length > 0)
         {
             final var inputFile = new File(args[0]);
@@ -19,11 +19,18 @@ public class TripSimulator
             {
                 try
                 {
-                    final TripConsumer tripConsumer = new BusTripConsumer(new FileInputStream(inputFile)) ;
-
+                    final TripConsumer tripConsumer = new BusTripConsumer(new FileInputStream(inputFile));
+                    final var busTripBilling = new BusTripBilling(tripConsumer.deserialiseTripData());
+                    final var result = busTripBilling.processList();
+                    result.forEach(transaction -> {
+                        System.out.println(transaction.generateOutput());
+                    });
                 } catch (FileNotFoundException nfn)
                 {
                     System.out.println("File provided was not found");
+                } catch (IllegalArgumentException ie)
+                {
+                    System.out.println("IllegalArgumentException was caught: "+ie.getLocalizedMessage());
                 }
             }else
             {

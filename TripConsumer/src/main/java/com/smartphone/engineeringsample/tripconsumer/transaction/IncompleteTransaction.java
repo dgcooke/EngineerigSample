@@ -18,11 +18,13 @@ public class IncompleteTransaction implements Transaction
 		var stringBuilder = new StringBuilder();
 		stringBuilder.append(trip.getTimeAsString());
 		stringBuilder.append(", ");
+		stringBuilder.append("00-00-0000 00:00:00");
 		stringBuilder.append(", ");
-		stringBuilder.append("0");
+		stringBuilder.append("000");
 		stringBuilder.append(", ");
 		stringBuilder.append(trip.getStop().getStopName());
 		stringBuilder.append(", ");
+		stringBuilder.append("Unknown");
 		stringBuilder.append(", ");
 
 		if(trip.getStop() instanceof StopOne)
