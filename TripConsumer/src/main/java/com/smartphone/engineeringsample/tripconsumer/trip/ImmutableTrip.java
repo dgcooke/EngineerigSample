@@ -68,24 +68,30 @@ public final class ImmutableTrip implements Trip
 
 	public ImmutableTrip(final List<String> inputList)
 	{
-		try
+		if(inputList.size() == 7)
 		{
-			this.id = Long.valueOf(inputList.get(ID_POSITION).trim());
-			this.utcTime = LocalDateTime.parse(inputList.get(TIME_POSITION).trim(), formatter).atZone(ZoneOffset.UTC);
-			this.tapType = TapType.valueOf(inputList.get(TYPE_POSITION).trim());
-			this.stop = Stop.getInstance(inputList.get(STOP_POSITION).trim());
-			this.company = new Company(inputList.get(COMPANY_POSITION).trim());
-			this.pan = inputList.get(PAN_POSITION).trim();
-			this.bus = new Bus(inputList.get(BUS_POSITION).trim());
+			try
+			{
+				this.id = Long.valueOf(inputList.get(ID_POSITION).trim());
+				this.utcTime = LocalDateTime.parse(inputList.get(TIME_POSITION).trim(), formatter).atZone(ZoneOffset.UTC);
+				this.tapType = TapType.valueOf(inputList.get(TYPE_POSITION).trim());
+				this.stop = Stop.getInstance(inputList.get(STOP_POSITION).trim());
+				this.company = new Company(inputList.get(COMPANY_POSITION).trim());
+				this.pan = inputList.get(PAN_POSITION).trim();
+				this.bus = new Bus(inputList.get(BUS_POSITION).trim());
 
-		}catch (Exception exception)
+			}catch (Exception exception)
+			{
+				final var stringBuilder = new StringBuilder();
+				inputList.stream().forEach(value -> {
+					stringBuilder.append(value);
+					stringBuilder.append(" ");
+				});
+				LOGGER.log(Level.WARNING, "Threw Exception while parsing Trip (details: " + stringBuilder.toString() + ")");
+			}
+		}else
 		{
-			final var stringBuilder = new StringBuilder();
-			inputList.stream().forEach(value -> {
-				stringBuilder.append(value);
-				stringBuilder.append(" ");
-			});
-			LOGGER.log(Level.WARNING, "Threw Exception while parsing Trip (details: " + stringBuilder.toString() + ")");
+			throw new IllegalArgumentException("Inputlist passed to constrructor is invalid length");
 		}
 	}
 

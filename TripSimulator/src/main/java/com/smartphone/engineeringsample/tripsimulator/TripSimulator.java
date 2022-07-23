@@ -7,14 +7,15 @@ import com.smartphone.engineeringsample.tripconsumer.billing.BusTripBilling;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 public class TripSimulator
 {
     public static void main(String[] args)
     {
-        if(args.length > 0)
+        if(args.length > 3)
         {
-            final var inputFile = new File(args[0]);
+            final var inputFile = new File(args[4]);
             if((inputFile != null) && (inputFile.exists()))
             {
                 try
@@ -22,6 +23,10 @@ public class TripSimulator
                     final TripConsumer tripConsumer = new BusTripConsumer(new FileInputStream(inputFile));
                     final var busTripBilling = new BusTripBilling(tripConsumer.deserialiseTripData());
                     final var result = busTripBilling.processList();
+                    if(!result.isEmpty())
+                    {
+                        busTripBilling.printBillingHeader();
+                    }
                     result.forEach(transaction -> {
                         System.out.println(transaction.generateOutput());
                     });

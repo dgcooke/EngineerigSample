@@ -58,7 +58,7 @@ class BusTripBillingTest
 				() -> assertThat(result).isNotNull(),
 				() -> assertThat(result.size()).isEqualTo(1),
 				() -> assertThat(result.get(0)).isInstanceOf(IncompleteTransaction.class),
-				() -> assertThat( result.get(0).generateOutput()).isEqualTo("22-01-2018 13:00:00, , 0, Stop1, , $7.30, Company1, B37, 5500005555555559, INCOMPLETE")
+				() -> assertThat( result.get(0).generateOutput()).isEqualTo("22-01-2018 13:00:00, 00-00-0000 00:00:00, 000, Stop1, Unknown, $7.30, Company1, B37, 5500005555555559, INCOMPLETE")
 		);
 
 	}

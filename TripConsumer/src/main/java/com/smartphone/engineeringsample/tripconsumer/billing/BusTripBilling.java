@@ -24,7 +24,18 @@ public final class BusTripBilling implements Billing
     }
 
     /**
-     *
+     * prints the billing header to the console for user viewing
+     */
+    public void printBillingHeader()
+    {
+        System.out.println(OUTPUT_HEADER);
+    }
+
+    /**
+     * stores each seen trip in the tripMap keyed by the pan
+     * if the trip being processed has been seen before it is pulled and processed
+     * one we are done we go back through the Map and process the incomplete trips
+     * finally printing the
      * @return List<Transaction> list of transactions to be processed
      */
     public List<Transaction> processList()
@@ -55,10 +66,6 @@ public final class BusTripBilling implements Billing
                 final var trip = tripMap.get(pan);
                 transactionList.add(new IncompleteTransaction(trip));
             });
-        }
-        if(!transactionList.isEmpty())
-        {
-            System.out.println(OUTPUT_HEADER);
         }
         return transactionList;
     }
